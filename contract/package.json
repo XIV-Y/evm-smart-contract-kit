@@ -1,0 +1,29 @@
+{
+  "name": "eth-erc20-token",
+  "version": "1.0.0",
+  "description": "ERC20 Token with Hardhat and Docker",
+  "main": "index.js",
+  "scripts": {
+    "dev": "hardhat node",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "verify": "hardhat verify"
+  },
+  "keywords": [
+    "erc20",
+    "ethereum",
+    "solidity",
+    "hardhat",
+    "docker"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^5.3.0",
+    "dotenv": "^16.5.0",
+    "hardhat": "^2.24.0"
+  }
+}

@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  hardhat:
+    build:
+      context: ./contract
+      dockerfile: Dockerfile
+    container_name: erc20-dev
+    volumes:
+      - ./contract:/app
+      - /app/node_modules
+    ports:
+      - "8545:8545"
+    environment:
+      - NODE_ENV=development
+    command: npx hardhat node
+
+  # 開発時のコマンド実行用サービス
+  dev:
+    build:
+      context: ./contract
+      dockerfile: Dockerfile
+    volumes:
+      - ./contract:/app
+      - /app/node_modules
+    depends_on:
+      - hardhat
+    environment:
+      - NODE_ENV=development
+    entrypoint: ["npx", "hardhat"]
+    command: ["help"]
