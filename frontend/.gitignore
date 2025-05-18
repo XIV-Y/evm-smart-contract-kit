@@ -1,0 +1,77 @@
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# テスト
+/coverage
+
+# Next.js
+/.next/
+/out/
+
+# 本番ビルド
+/build
+
+# その他
+.DS_Store
+*.pem
+
+# デバッグ
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ローカル環境変数
+.env*.local
+.env
+
+# Vercel
+.vercel
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE / エディタ
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+*.sublime-*
+.history
+.ionide
+
+# PWA
+**/public/precache.*.*.js
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/fallback-*.js
+**/public/precache.*.*.js.map
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
+**/public/fallback-*.js.map
+
+# ログファイル
+logs
+*.log
+
+# キャッシュ
+.eslintcache
+.stylelintcache
+
+# ストーリーブック (使用している場合)
+/storybook-static
+
+# Docker関連
+docker-compose.override.yml
+
+# バックアップファイル
+*.bak
+*.tmp
+*.temp
