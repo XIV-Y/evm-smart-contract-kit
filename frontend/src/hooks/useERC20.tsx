@@ -39,7 +39,15 @@ const useERC20 = () => {
       const tx = await tokenContract.transfer(recipientAddress, amountInWei);
       const receipt = await tx.wait();
 
-      alert(`転送成功: ${receipt.transactionHash}`);
+      const result = window.confirm(
+        `転送成功: ${receipt.transactionHash}\nエクスプローラーで確認しますか？`
+      );
+      if (result) {
+        window.open(
+          `https://sepolia.etherscan.io/tx/${receipt.transactionHash}`,
+          "_blank"
+        );
+      }
     } catch (error) {
       alert(`"転送失敗: ${error}`);
     }
@@ -109,7 +117,15 @@ const useERC20 = () => {
       const tx = await tokenWithSigner.transfer(recipientAddress, amountInWei);
       const receipt = await tx.wait();
 
-      alert(`転送成功: ${receipt.transactionHash}`);
+      const result = window.confirm(
+        `転送成功: ${receipt.transactionHash}\nエクスプローラーで確認しますか？`
+      );
+      if (result) {
+        window.open(
+          `https://sepolia.etherscan.io/tx/${receipt.transactionHash}`,
+          "_blank"
+        );
+      }
     } catch (error) {
       alert(`"転送失敗: ${error}`);
     }
