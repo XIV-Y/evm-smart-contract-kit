@@ -2,19 +2,35 @@ import { ethers } from "ethers";
 import { useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
 
 import type { ExternalProvider } from "@ethersproject/providers";
-
-const ERC20_ABI = [
-  "function transfer(address to, uint256 amount) returns (bool)",
-  "function balanceOf(address owner) view returns (uint256)",
-  "function decimals() view returns (uint8)",
-  "function symbol() view returns (string)",
-];
-
-const ERC20_ADDRESS = "0x85368B4dFd4a13a5d20ba7183204C854bC05Ea9E";
+import { ERC20_ADDRESS, ERC20_ABI } from "../consts";
 
 const useERC20 = () => {
   const { address, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider("eip155");
+
+  const getProvider = () => {
+    if (!walletProvider) throw new Error("No wallet provider");
+
+    return new ethers.providers.Web3Provider(
+      walletProvider as ExternalProvider
+    );
+  };
+
+  const getTokenContract = (
+    signerOrProvider: ethers.Signer | ethers.providers.Provider
+  ) => {
+    return new ethers.Contract(ERC20_ADDRESS, ERC20_ABI, signerOrProvider);
+  };
+
+  const confirmAndOpenExplorer = (txHash: string) => {
+    const result = window.confirm(
+      `転送成功: ${txHash}\nエクスプローラーで確認しますか？`
+    );
+
+    if (result) {
+      window.open(`https://sepolia.etherscan.io/tx/${txHash}`, "_blank");
+    }
+  };
 
   // トークンの転送
   const transfer = async (recipientAddress: string) => {
@@ -24,30 +40,14 @@ const useERC20 = () => {
         return;
       }
 
-      const provider = new ethers.providers.Web3Provider(
-        walletProvider as ExternalProvider
-      );
-
-      const tokenContract = new ethers.Contract(
-        ERC20_ADDRESS,
-        ERC20_ABI,
-        provider.getSigner()
-      );
-
+      const provider = getProvider();
+      const tokenContract = getTokenContract(provider.getSigner());
       const decimals = await tokenContract.decimals();
       const amountInWei = ethers.utils.parseUnits(String(1), decimals);
       const tx = await tokenContract.transfer(recipientAddress, amountInWei);
       const receipt = await tx.wait();
 
-      const result = window.confirm(
-        `転送成功: ${receipt.transactionHash}\nエクスプローラーで確認しますか？`
-      );
-      if (result) {
-        window.open(
-          `https://sepolia.etherscan.io/tx/${receipt.transactionHash}`,
-          "_blank"
-        );
-      }
+      confirmAndOpenExplorer(receipt.transactionHash);
     } catch (error) {
       alert(`"転送失敗: ${error}`);
     }
@@ -61,18 +61,9 @@ const useERC20 = () => {
         return;
       }
 
-      const provider = new ethers.providers.Web3Provider(
-        walletProvider as ExternalProvider
-      );
-
+      const provider = getProvider();
       const signer = provider.getSigner();
-
-      const tokenContract = new ethers.Contract(
-        ERC20_ADDRESS,
-        ERC20_ABI,
-        provider.getSigner()
-      );
-
+      const tokenContract = getTokenContract(provider.getSigner());
       const decimals = await tokenContract.decimals();
       const amountInWei = ethers.utils.parseUnits(String(1), decimals);
       const network = await provider.getNetwork();
@@ -117,15 +108,7 @@ const useERC20 = () => {
       const tx = await tokenWithSigner.transfer(recipientAddress, amountInWei);
       const receipt = await tx.wait();
 
-      const result = window.confirm(
-        `転送成功: ${receipt.transactionHash}\nエクスプローラーで確認しますか？`
-      );
-      if (result) {
-        window.open(
-          `https://sepolia.etherscan.io/tx/${receipt.transactionHash}`,
-          "_blank"
-        );
-      }
+      confirmAndOpenExplorer(receipt.transactionHash);
     } catch (error) {
       alert(`"転送失敗: ${error}`);
     }
@@ -138,16 +121,8 @@ const useERC20 = () => {
         return;
       }
 
-      const provider = new ethers.providers.Web3Provider(
-        walletProvider as ExternalProvider
-      );
-
-      const tokenContract = new ethers.Contract(
-        ERC20_ADDRESS,
-        ERC20_ABI,
-        provider
-      );
-
+      const provider = getProvider();
+      const tokenContract = getTokenContract(provider);
       const decimals = await tokenContract.decimals();
       const symbol = await tokenContract.symbol();
       const balanceWei = await tokenContract.balanceOf(walletAddress);
