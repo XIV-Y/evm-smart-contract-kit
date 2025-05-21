@@ -1,4 +1,8 @@
-import { createAppKit, useDisconnect } from "@reown/appkit/react";
+import {
+  createAppKit,
+  useAppKitAccount,
+  useDisconnect,
+} from "@reown/appkit/react";
 import { Ethers5Adapter } from "@reown/appkit-adapter-ethers5";
 import { sepolia } from "@reown/appkit/networks";
 import useERC20 from "./hooks/useERC20";
@@ -23,6 +27,7 @@ createAppKit({
 });
 
 export default function App() {
+  const { isConnected } = useAppKitAccount();
   const { disconnect } = useDisconnect();
 
   const { transfer } = useERC20();
@@ -39,11 +44,23 @@ export default function App() {
     <div className="flex flex-col items-center justify-center h-screen w-full bg-[#1a202c]">
       <w3m-button />
 
-      <button onClick={handleTransfer}>Transfer</button>
+      {isConnected && (
+        <div className="flex flex-col gap-4 mt-8 w-40">
+          <button
+            className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+            onClick={handleTransfer}
+          >
+            Transfer
+          </button>
 
-      <button className="text-white bg" onClick={handleDisconnect}>
-        Disconnect
-      </button>
+          <button
+            className="py-2 px-4 rounded bg-red-600 text-white font-semibold hover:bg-red-700 transition"
+            onClick={handleDisconnect}
+          >
+            Disconnect
+          </button>
+        </div>
+      )}
     </div>
   );
 }
