@@ -7,6 +7,7 @@ import { Ethers5Adapter } from "@reown/appkit-adapter-ethers5";
 import { sepolia } from "@reown/appkit/networks";
 import useERC20 from "./hooks/useERC20";
 import { useEffect, useState } from "react";
+import ETH from "./components/eth";
 
 const projectId = import.meta.env.VITE_PROJECT_ID;
 
@@ -91,6 +92,8 @@ export default function App() {
           >
             Disconnect
           </button>
+
+          <ETH />
         </div>
       )}
     </div>
