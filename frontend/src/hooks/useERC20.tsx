@@ -26,12 +26,13 @@ const useERC20 = () => {
       const provider = new ethers.providers.Web3Provider(
         walletProvider as ExternalProvider
       );
-      const signer = provider.getSigner();
+
       const tokenContract = new ethers.Contract(
         ERC20_ADDRESS,
         ERC20_ABI,
-        signer
+        provider.getSigner()
       );
+
       const decimals = await tokenContract.decimals();
       const amountInWei = ethers.utils.parseUnits(String(1), decimals);
       const tx = await tokenContract.transfer(recipientAddress, amountInWei);
@@ -43,8 +44,40 @@ const useERC20 = () => {
     }
   };
 
+  const balanceOf = async (walletAddress: string) => {
+    try {
+      if (!walletAddress || !isConnected) {
+        alert("Wallet address is required.");
+        return;
+      }
+
+      const provider = new ethers.providers.Web3Provider(
+        walletProvider as ExternalProvider
+      );
+
+      const tokenContract = new ethers.Contract(
+        ERC20_ADDRESS,
+        ERC20_ABI,
+        provider
+      );
+
+      const decimals = await tokenContract.decimals();
+      const symbol = await tokenContract.symbol();
+      const balanceWei = await tokenContract.balanceOf(walletAddress);
+      const balance = ethers.utils.formatUnits(balanceWei, decimals);
+
+      return {
+        balance,
+        symbol,
+      };
+    } catch (error) {
+      alert(`残高取得エラー: ${error}`);
+    }
+  };
+
   return {
     transfer,
+    balanceOf,
   };
 };
 
