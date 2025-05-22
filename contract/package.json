@@ -9,6 +9,9 @@
     "test": "hardhat test",
     "deploy:local": "hardhat run scripts/deploy.js --network localhost",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:custom-erc20-local": "hardhat run scripts/customERC20/deploy.js --network localhost",
+    "deploy:custom-erc20-sepolia": "hardhat run scripts/customERC20/deploy.js --network sepolia",
+    "deploy:compile-for-react-custom-erc20-sepolia": "hardhat run scripts/customERC20/compile-for-react.js",
     "verify": "hardhat verify"
   },
   "keywords": [

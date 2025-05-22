@@ -11,3 +11,5 @@ typechain-types
 artifacts
 
 cache
+
+**/compiled-*.js
