@@ -9,6 +9,7 @@ import { useState } from "react";
 import ETH from "./components/eth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ERC20 from "./components/erc20";
+import CustomERC20 from "./components/CustomERC20";
 
 const projectId = import.meta.env.VITE_PROJECT_ID;
 
@@ -62,9 +63,10 @@ export default function App() {
             )}
 
             <Tabs defaultValue="Sepolia" className="w-[400px]">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="Sepolia">Sepolia</TabsTrigger>
                 <TabsTrigger value="ERC20">ERC20</TabsTrigger>
+                <TabsTrigger value="CustomERC20">Custom ERC20</TabsTrigger>
               </TabsList>
               <TabsContent value="Sepolia" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
@@ -74,6 +76,11 @@ export default function App() {
               <TabsContent value="ERC20" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
                   <ERC20 setBalance={setBalance} />
+                </div>
+              </TabsContent>
+              <TabsContent value="CustomERC20" className="space-y-2">
+                <div className="flex justify-center items-center gap-2">
+                  <CustomERC20 />
                 </div>
               </TabsContent>
             </Tabs>
