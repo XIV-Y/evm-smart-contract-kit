@@ -1,14 +1,14 @@
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useEffect } from "react";
-import useETH from "../hooks/useETH";
+import useERC20 from "../hooks/useERC20";
 
 type Props = {
   setBalance: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-export default function ETH(props: Props) {
+export default function ERC20(props: Props) {
   const { address, isConnected } = useAppKitAccount();
-  const { transfer, balanceOf } = useETH();
+  const { transfer, signatureTransfer, balanceOf } = useERC20();
 
   useEffect(() => {
     const getBalance = async () => {
@@ -26,6 +26,12 @@ export default function ETH(props: Props) {
     await transfer("0x51a39Aaa111CD9B73b837BD078FBd7a26E13B7CE");
   };
 
+  const handleSignatureTransfer = async () => {
+    if (!address) return;
+
+    await signatureTransfer("0x51a39Aaa111CD9B73b837BD078FBd7a26E13B7CE");
+  };
+
   return (
     <>
       {isConnected && (
@@ -35,6 +41,13 @@ export default function ETH(props: Props) {
             onClick={handleTransfer}
           >
             Transfer
+          </button>
+
+          <button
+            className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+            onClick={handleSignatureTransfer}
+          >
+            Signature Transfer
           </button>
         </>
       )}

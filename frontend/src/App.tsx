@@ -5,10 +5,10 @@ import {
 } from "@reown/appkit/react";
 import { Ethers5Adapter } from "@reown/appkit-adapter-ethers5";
 import { sepolia } from "@reown/appkit/networks";
-import useERC20 from "./hooks/useERC20";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ETH from "./components/eth";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ERC20 from "./components/erc20";
 
 const projectId = import.meta.env.VITE_PROJECT_ID;
 
@@ -30,33 +30,10 @@ createAppKit({
 });
 
 export default function App() {
-  const { address, isConnected } = useAppKitAccount();
+  const { isConnected } = useAppKitAccount();
   const { disconnect } = useDisconnect();
-  const { transfer, signatureTransfer, balanceOf } = useERC20();
 
   const [balance, setBalance] = useState<string | null>(null);
-
-  useEffect(() => {
-    const getBalance = async () => {
-      if (!address) return;
-
-      const balance = await balanceOf(address);
-
-      setBalance(`${balance?.balance} ${balance?.symbol}`);
-    };
-
-    getBalance();
-  }, [address, balanceOf]);
-
-  const handleTransfer = async () => {
-    await transfer("0x51a39Aaa111CD9B73b837BD078FBd7a26E13B7CE");
-  };
-
-  const handleSignatureTransfer = async () => {
-    if (!address) return;
-
-    await signatureTransfer("0x51a39Aaa111CD9B73b837BD078FBd7a26E13B7CE");
-  };
 
   const handleDisconnect = async () => {
     await disconnect();
@@ -91,24 +68,12 @@ export default function App() {
               </TabsList>
               <TabsContent value="Sepolia" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
-                  <ETH />
+                  <ETH setBalance={setBalance} />
                 </div>
               </TabsContent>
               <TabsContent value="ERC20" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
-                  <button
-                    className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-                    onClick={handleTransfer}
-                  >
-                    Transfer
-                  </button>
-
-                  <button
-                    className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-                    onClick={handleSignatureTransfer}
-                  >
-                    Signature Transfer
-                  </button>
+                  <ERC20 setBalance={setBalance} />
                 </div>
               </TabsContent>
             </Tabs>
