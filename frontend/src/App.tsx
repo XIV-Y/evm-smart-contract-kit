@@ -8,6 +8,7 @@ import { sepolia } from "@reown/appkit/networks";
 import useERC20 from "./hooks/useERC20";
 import { useEffect, useState } from "react";
 import ETH from "./components/eth";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const projectId = import.meta.env.VITE_PROJECT_ID;
 
@@ -66,35 +67,53 @@ export default function App() {
       <w3m-button />
 
       {isConnected && (
-        <div className="flex flex-col gap-4 mt-8 w-40">
-          {balance && (
-            <div className="text-white text-center mb-2">
-              <span>残高: {balance}</span>
-            </div>
-          )}
-          <button
-            className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-            onClick={handleTransfer}
-          >
-            Transfer
-          </button>
+        <>
+          <div className="flex justify-center items-center gap-2 mt-4">
+            <button
+              className="py-2 px-4 rounded bg-red-600 text-white font-semibold hover:bg-red-700 transition"
+              onClick={handleDisconnect}
+            >
+              Disconnect
+            </button>
+          </div>
 
-          <button
-            className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-            onClick={handleSignatureTransfer}
-          >
-            Signature Transfer
-          </button>
+          <div className="mt-8">
+            {balance && (
+              <div className="text-white text-center mb-2">
+                <span>残高: {balance}</span>
+              </div>
+            )}
 
-          <button
-            className="py-2 px-4 rounded bg-red-600 text-white font-semibold hover:bg-red-700 transition"
-            onClick={handleDisconnect}
-          >
-            Disconnect
-          </button>
+            <Tabs defaultValue="Sepolia" className="w-[400px]">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="Sepolia">Sepolia</TabsTrigger>
+                <TabsTrigger value="ERC20">ERC20</TabsTrigger>
+              </TabsList>
+              <TabsContent value="Sepolia" className="space-y-2">
+                <div className="flex justify-center items-center gap-2">
+                  <ETH />
+                </div>
+              </TabsContent>
+              <TabsContent value="ERC20" className="space-y-2">
+                <div className="flex justify-center items-center gap-2">
+                  <button
+                    className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+                    onClick={handleTransfer}
+                  >
+                    Transfer
+                  </button>
 
-          <ETH />
-        </div>
+                  <button
+                    className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+                    onClick={handleSignatureTransfer}
+                  >
+                    Signature Transfer
+                  </button>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </>
       )}
     </div>
   );

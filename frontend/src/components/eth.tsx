@@ -27,19 +27,14 @@ export default function ETH() {
   return (
     <>
       {isConnected && (
-        <div className="flex flex-col gap-4 mt-8 w-40">
-          {balance && (
-            <div className="text-white text-center mb-2">
-              <span>残高: {balance}</span>
-            </div>
-          )}
+        <>
           <button
             className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
             onClick={handleTransfer}
           >
             Transfer
           </button>
-        </div>
+        </>
       )}
     </>
   );
