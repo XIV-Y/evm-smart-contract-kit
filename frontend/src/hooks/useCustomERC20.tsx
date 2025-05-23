@@ -6,19 +6,11 @@ import {
   CUSTOM_ERC20_BYTECODE,
 } from "../contracts/compiled-customERC20.js";
 
-import type { ExternalProvider } from "@ethersproject/providers";
+import { getProvider } from "../lib/ethers.js";
 
 const useCustomERC20 = () => {
   const { address, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider("eip155");
-
-  const getProvider = () => {
-    if (!walletProvider) throw new Error("No wallet provider");
-
-    return new ethers.providers.Web3Provider(
-      walletProvider as ExternalProvider
-    );
-  };
 
   const deploy = async () => {
     try {
@@ -31,7 +23,7 @@ const useCustomERC20 = () => {
       const tokenSymbol = "Test1Symbol";
       const ownerAddress = address;
 
-      const provider = getProvider();
+      const provider = getProvider(walletProvider);
 
       const contractFactory = new ethers.ContractFactory(
         CUSTOM_ERC20_ABI,

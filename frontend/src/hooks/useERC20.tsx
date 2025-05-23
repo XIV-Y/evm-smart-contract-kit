@@ -1,20 +1,12 @@
 import { ethers } from "ethers";
 import { useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
 
-import type { ExternalProvider } from "@ethersproject/providers";
 import { ERC20_ADDRESS, ERC20_ABI } from "../consts";
+import { getProvider } from "../lib/ethers";
 
 const useERC20 = () => {
   const { address, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider("eip155");
-
-  const getProvider = () => {
-    if (!walletProvider) throw new Error("No wallet provider");
-
-    return new ethers.providers.Web3Provider(
-      walletProvider as ExternalProvider
-    );
-  };
 
   const getTokenContract = (
     signerOrProvider: ethers.Signer | ethers.providers.Provider
@@ -40,7 +32,7 @@ const useERC20 = () => {
         return;
       }
 
-      const provider = getProvider();
+      const provider = getProvider(walletProvider);
       const tokenContract = getTokenContract(provider.getSigner());
       const decimals = await tokenContract.decimals();
       const amountInWei = ethers.utils.parseUnits(String(1), decimals);
@@ -61,7 +53,7 @@ const useERC20 = () => {
         return;
       }
 
-      const provider = getProvider();
+      const provider = getProvider(walletProvider);
       const signer = provider.getSigner();
       const tokenContract = getTokenContract(provider.getSigner());
       const decimals = await tokenContract.decimals();
@@ -121,7 +113,7 @@ const useERC20 = () => {
         return;
       }
 
-      const provider = getProvider();
+      const provider = getProvider(walletProvider);
       const tokenContract = getTokenContract(provider);
       const decimals = await tokenContract.decimals();
       const symbol = await tokenContract.symbol();

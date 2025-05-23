@@ -1,18 +1,10 @@
 import { ethers } from "ethers";
 import { useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
-import type { ExternalProvider } from "@ethersproject/providers";
+import { getProvider } from "../lib/ethers";
 
 const useETH = () => {
   const { address, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider("eip155");
-
-  const getProvider = () => {
-    if (!walletProvider) throw new Error("No wallet provider");
-
-    return new ethers.providers.Web3Provider(
-      walletProvider as ExternalProvider
-    );
-  };
 
   const confirmAndOpenExplorer = (txHash: string) => {
     const result = window.confirm(
@@ -31,7 +23,7 @@ const useETH = () => {
         return;
       }
 
-      const provider = getProvider();
+      const provider = getProvider(walletProvider);
       const signer = provider.getSigner();
       const amountInWei = ethers.utils.parseEther("0.000001");
 
@@ -60,7 +52,7 @@ const useETH = () => {
         return;
       }
 
-      const provider = getProvider();
+      const provider = getProvider(walletProvider);
       const balanceWei = await provider.getBalance(targetAddress);
       const balance = ethers.utils.formatEther(balanceWei);
 
