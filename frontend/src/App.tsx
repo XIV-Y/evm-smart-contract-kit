@@ -5,7 +5,7 @@ import {
 } from "@reown/appkit/react";
 import { Ethers5Adapter } from "@reown/appkit-adapter-ethers5";
 import { polygonAmoy, sepolia } from "@reown/appkit/networks";
-import ETH from "./components/ETH";
+import Native from "./components/Native";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ERC20 from "./components/ERC20";
 import CustomERC20 from "./components/CustomERC20";
@@ -53,9 +53,9 @@ export default function App() {
           </div>
 
           <div className="mt-8">
-            <Tabs defaultValue="Sepolia" className="w-[400px]">
+            <Tabs defaultValue="Native" className="w-[400px]">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="Sepolia">Sepolia</TabsTrigger>
+                <TabsTrigger value="Native">Native</TabsTrigger>
                 <TabsTrigger value="ERC20">ERC20</TabsTrigger>
                 <TabsTrigger value="CustomERC20">Custom ERC20</TabsTrigger>
               </TabsList>
@@ -70,9 +70,9 @@ export default function App() {
                 )}
               </div>
 
-              <TabsContent value="Sepolia" className="space-y-2">
+              <TabsContent value="Native" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
-                  <ETH />
+                  <Native />
                 </div>
               </TabsContent>
               <TabsContent value="ERC20" className="space-y-2">

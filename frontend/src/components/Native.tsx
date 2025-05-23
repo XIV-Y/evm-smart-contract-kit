@@ -1,9 +1,9 @@
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useEffect } from "react";
-import useETH from "../hooks/useETH";
+import useETH from "../hooks/useNative";
 import { useBalanceStore } from "../store/useBalance";
 
-export default function ETH() {
+export default function Native() {
   const { address } = useAppKitAccount();
   const { transfer, balanceOf } = useETH();
   const { setBalance } = useBalanceStore();
