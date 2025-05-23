@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function ETH(props: Props) {
-  const { address, isConnected } = useAppKitAccount();
+  const { address } = useAppKitAccount();
   const { transfer, balanceOf } = useETH();
 
   useEffect(() => {
@@ -22,22 +22,16 @@ export default function ETH(props: Props) {
     getBalance();
   }, [address, balanceOf, props]);
 
-  const handleTransfer = async () => {
-    await transfer("0x51a39Aaa111CD9B73b837BD078FBd7a26E13B7CE");
-  };
-
   return (
     <>
-      {isConnected && (
-        <>
-          <button
-            className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
-            onClick={handleTransfer}
-          >
-            Transfer
-          </button>
-        </>
-      )}
+      <button
+        className="py-2 px-4 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+        onClick={async () => {
+          await transfer("0x51a39Aaa111CD9B73b837BD078FBd7a26E13B7CE");
+        }}
+      >
+        Transfer
+      </button>
     </>
   );
 }

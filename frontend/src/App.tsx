@@ -6,9 +6,9 @@ import {
 import { Ethers5Adapter } from "@reown/appkit-adapter-ethers5";
 import { sepolia } from "@reown/appkit/networks";
 import { useState } from "react";
-import ETH from "./components/eth";
+import ETH from "./components/ETH";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ERC20 from "./components/erc20";
+import ERC20 from "./components/ERC20";
 import CustomERC20 from "./components/CustomERC20";
 
 const projectId = import.meta.env.VITE_PROJECT_ID;
@@ -36,10 +36,6 @@ export default function App() {
 
   const [balance, setBalance] = useState<string | null>(null);
 
-  const handleDisconnect = async () => {
-    await disconnect();
-  };
-
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full bg-[#1a202c]">
       <w3m-button />
@@ -49,7 +45,9 @@ export default function App() {
           <div className="flex justify-center items-center gap-2 mt-4">
             <button
               className="py-2 px-4 rounded bg-red-600 text-white font-semibold hover:bg-red-700 transition"
-              onClick={handleDisconnect}
+              onClick={async () => {
+                await disconnect();
+              }}
             >
               Disconnect
             </button>
