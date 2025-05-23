@@ -22,7 +22,31 @@ const metadata = {
 
 createAppKit({
   adapters: [new Ethers5Adapter()],
-  networks: [sepolia, polygonAmoy],
+  networks: [
+    sepolia,
+    polygonAmoy,
+    {
+      id: 9372,
+      name: "Oasys Testnet",
+
+      nativeCurrency: {
+        name: "Oasys Testnet",
+        symbol: "OAS",
+        decimals: 18,
+      },
+      rpcUrls: {
+        default: {
+          http: ["https://rpc.testnet.oasys.games"],
+        },
+      },
+      blockExplorers: {
+        default: {
+          name: "Oasys Testnet",
+          url: "https://explorer.testnet.oasys.games",
+        },
+      },
+    },
+  ],
   metadata,
   projectId,
   features: {

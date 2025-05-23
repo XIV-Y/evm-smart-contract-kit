@@ -11,6 +11,8 @@ export const getExplorerTxUrl = (chainId: number, txHash: string) => {
       return `https://www.oklink.com/ja/amoy/tx/${txHash}`;
     case 11155111:
       return `https://sepolia.etherscan.io/tx/${txHash}`;
+    case 9372:
+      return `https://explorer.testnet.oasys.games/tx/${txHash}`;
     default:
       throw new Error("Unsupported chain ID");
   }
@@ -34,6 +36,8 @@ export const getSymbolByChainId = (chainId: number) => {
       return "AMOY";
     case 11155111:
       return "Sepolia";
+    case 9372:
+      return `OAS`;
     default:
       throw new Error("Unsupported chain ID");
   }
