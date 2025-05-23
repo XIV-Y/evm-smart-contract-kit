@@ -14,3 +14,14 @@ export const confirmAndOpenExplorer = (txHash: string) => {
     window.open(`https://sepolia.etherscan.io/tx/${txHash}`, "_blank");
   }
 };
+
+export const getSymbolByChainId = (chainId: number) => {
+  switch (chainId) {
+    case 80002:
+      return "AMOY";
+    case 11155111:
+      return "Sepolia";
+    default:
+      throw new Error("Unsupported chain ID");
+  }
+};

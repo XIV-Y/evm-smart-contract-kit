@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
 import { getProvider } from "../lib/ethers";
-import { confirmAndOpenExplorer } from "../lib/utils";
+import { confirmAndOpenExplorer, getSymbolByChainId } from "../lib/utils";
 
 const useETH = () => {
   const { address, isConnected } = useAppKitAccount();
@@ -46,10 +46,11 @@ const useETH = () => {
       const provider = getProvider(walletProvider);
       const balanceWei = await provider.getBalance(targetAddress);
       const balance = ethers.utils.formatEther(balanceWei);
+      const network = await provider.getNetwork();
 
       return {
         balance,
-        symbol: "ETH",
+        symbol: getSymbolByChainId(network.chainId),
       };
     } catch (error) {
       alert(`残高取得エラー: ${error}`);

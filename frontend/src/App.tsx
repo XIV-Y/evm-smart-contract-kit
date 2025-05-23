@@ -4,7 +4,7 @@ import {
   useDisconnect,
 } from "@reown/appkit/react";
 import { Ethers5Adapter } from "@reown/appkit-adapter-ethers5";
-import { sepolia } from "@reown/appkit/networks";
+import { polygonAmoy, sepolia } from "@reown/appkit/networks";
 import ETH from "./components/ETH";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ERC20 from "./components/ERC20";
@@ -22,7 +22,7 @@ const metadata = {
 
 createAppKit({
   adapters: [new Ethers5Adapter()],
-  networks: [sepolia],
+  networks: [sepolia, polygonAmoy],
   metadata,
   projectId,
   features: {
