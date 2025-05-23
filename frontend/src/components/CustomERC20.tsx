@@ -1,7 +1,14 @@
+import { useEffect } from "react";
 import useCustomERC20 from "../hooks/useCustomERC20";
+import { useBalanceStore } from "../store/useBalance";
 
 export default function CustomERC20() {
   const { deploy } = useCustomERC20();
+  const { setBalance } = useBalanceStore();
+
+  useEffect(() => {
+    setBalance(null);
+  }, [setBalance]);
 
   return (
     <>

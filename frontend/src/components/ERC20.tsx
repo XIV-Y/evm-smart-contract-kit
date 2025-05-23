@@ -1,14 +1,12 @@
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useEffect } from "react";
 import useERC20 from "../hooks/useERC20";
+import { useBalanceStore } from "../store/useBalance";
 
-type Props = {
-  setBalance: React.Dispatch<React.SetStateAction<string | null>>;
-};
-
-export default function ERC20(props: Props) {
+export default function ERC20() {
   const { address } = useAppKitAccount();
   const { transfer, signatureTransfer, balanceOf } = useERC20();
+  const { setBalance } = useBalanceStore();
 
   useEffect(() => {
     const getBalance = async () => {
@@ -16,11 +14,12 @@ export default function ERC20(props: Props) {
 
       const balance = await balanceOf(address);
 
-      props.setBalance(`${balance?.balance} ${balance?.symbol}`);
+      setBalance(`${balance?.balance} ${balance?.symbol}`);
     };
 
     getBalance();
-  }, [address, balanceOf, props]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
   return (
     <>

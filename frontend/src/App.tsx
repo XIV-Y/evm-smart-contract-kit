@@ -5,11 +5,11 @@ import {
 } from "@reown/appkit/react";
 import { Ethers5Adapter } from "@reown/appkit-adapter-ethers5";
 import { sepolia } from "@reown/appkit/networks";
-import { useState } from "react";
 import ETH from "./components/ETH";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ERC20 from "./components/ERC20";
 import CustomERC20 from "./components/CustomERC20";
+import { useBalanceStore } from "./store/useBalance";
 
 const projectId = import.meta.env.VITE_PROJECT_ID;
 
@@ -33,8 +33,7 @@ createAppKit({
 export default function App() {
   const { isConnected } = useAppKitAccount();
   const { disconnect } = useDisconnect();
-
-  const [balance, setBalance] = useState<string | null>(null);
+  const { balance } = useBalanceStore();
 
   return (
     <div className="flex flex-col items-center justify-center h-screen w-full bg-[#1a202c]">
@@ -68,12 +67,12 @@ export default function App() {
               </TabsList>
               <TabsContent value="Sepolia" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
-                  <ETH setBalance={setBalance} />
+                  <ETH />
                 </div>
               </TabsContent>
               <TabsContent value="ERC20" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
-                  <ERC20 setBalance={setBalance} />
+                  <ERC20 />
                 </div>
               </TabsContent>
               <TabsContent value="CustomERC20" className="space-y-2">

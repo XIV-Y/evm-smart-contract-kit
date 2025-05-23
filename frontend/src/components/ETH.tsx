@@ -1,14 +1,12 @@
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useEffect } from "react";
 import useETH from "../hooks/useETH";
+import { useBalanceStore } from "../store/useBalance";
 
-type Props = {
-  setBalance: React.Dispatch<React.SetStateAction<string | null>>;
-};
-
-export default function ETH(props: Props) {
+export default function ETH() {
   const { address } = useAppKitAccount();
   const { transfer, balanceOf } = useETH();
+  const { setBalance } = useBalanceStore();
 
   useEffect(() => {
     const getBalance = async () => {
@@ -16,11 +14,12 @@ export default function ETH(props: Props) {
 
       const balance = await balanceOf(address);
 
-      props.setBalance(`${balance?.balance} ${balance?.symbol}`);
+      setBalance(`${balance?.balance} ${balance?.symbol}`);
     };
 
     getBalance();
-  }, [address, balanceOf, props]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
   return (
     <>
