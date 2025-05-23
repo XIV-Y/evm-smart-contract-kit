@@ -23,8 +23,9 @@ const useERC20 = () => {
       const amountInWei = ethers.utils.parseUnits(String(1), decimals);
       const tx = await tokenContract.transfer(recipientAddress, amountInWei);
       const receipt = await tx.wait();
+      const network = await provider.getNetwork();
 
-      confirmAndOpenExplorer(receipt.transactionHash);
+      confirmAndOpenExplorer(network.chainId, receipt.transactionHash);
     } catch (error) {
       alert(`"転送失敗: ${error}`);
     }
@@ -85,7 +86,7 @@ const useERC20 = () => {
       const tx = await tokenWithSigner.transfer(recipientAddress, amountInWei);
       const receipt = await tx.wait();
 
-      confirmAndOpenExplorer(receipt.transactionHash);
+      confirmAndOpenExplorer(network.chainId, receipt.transactionHash);
     } catch (error) {
       alert(`"転送失敗: ${error}`);
     }

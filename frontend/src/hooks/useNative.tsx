@@ -26,8 +26,9 @@ const useETH = () => {
 
       const txResponse = await signer.sendTransaction(tx);
       const receipt = await txResponse.wait();
+      const network = await provider.getNetwork();
 
-      confirmAndOpenExplorer(receipt.transactionHash);
+      confirmAndOpenExplorer(network.chainId, receipt.transactionHash);
     } catch (error) {
       alert(`転送失敗: ${error}`);
       throw error;

@@ -68,7 +68,9 @@ const useCustomERC20 = () => {
 
       console.log("Contract deployed successfully:", deployedInfo);
 
-      confirmAndOpenExplorer(txHash);
+      const network = await provider.getNetwork();
+
+      confirmAndOpenExplorer(network.chainId, txHash);
     } catch (error) {
       alert(`作成失敗: ${error}`);
     }

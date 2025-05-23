@@ -5,13 +5,26 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const confirmAndOpenExplorer = (txHash: string) => {
+export const getExplorerTxUrl = (chainId: number, txHash: string) => {
+  switch (chainId) {
+    case 80002:
+      return `https://www.oklink.com/ja/amoy/tx/${txHash}`;
+    case 11155111:
+      return `https://sepolia.etherscan.io/tx/${txHash}`;
+    default:
+      throw new Error("Unsupported chain ID");
+  }
+};
+
+export const confirmAndOpenExplorer = (chainId: number,txHash: string) => {
   const result = window.confirm(
-    `転送成功: ${txHash}\nエクスプローラーで確認しますか？`
+    `トランザクション成功: ${txHash}\nエクスプローラーで確認しますか？`
   );
 
   if (result) {
-    window.open(`https://sepolia.etherscan.io/tx/${txHash}`, "_blank");
+    const url = getExplorerTxUrl(chainId, txHash);
+
+    window.open(url, "_blank");
   }
 };
 
