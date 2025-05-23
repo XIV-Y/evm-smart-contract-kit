@@ -53,18 +53,23 @@ export default function App() {
           </div>
 
           <div className="mt-8">
-            {balance && (
-              <div className="text-white text-center mb-2">
-                <span>残高: {balance}</span>
-              </div>
-            )}
-
             <Tabs defaultValue="Sepolia" className="w-[400px]">
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="Sepolia">Sepolia</TabsTrigger>
                 <TabsTrigger value="ERC20">ERC20</TabsTrigger>
                 <TabsTrigger value="CustomERC20">Custom ERC20</TabsTrigger>
               </TabsList>
+
+              <div className="text-white text-center mb-2 min-h-[24px] flex items-center justify-center">
+                {balance ? (
+                  <span>残高: {balance}</span>
+                ) : (
+                  <span className="opacity-0 select-none">
+                    残高: 0.0000 TOKEN
+                  </span>
+                )}
+              </div>
+
               <TabsContent value="Sepolia" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
                   <ETH />
