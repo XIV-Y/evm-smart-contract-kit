@@ -1,10 +1,11 @@
-import { useAppKitAccount } from "@reown/appkit/react";
+import { useAppKitAccount, useAppKitNetwork } from "@reown/appkit/react";
 import { useEffect } from "react";
 import useETH from "../hooks/useNative";
 import { useBalanceStore } from "../store/useBalance";
 
 export default function Native() {
   const { address } = useAppKitAccount();
+  const { chainId } = useAppKitNetwork();
   const { transfer, balanceOf } = useETH();
   const { setBalance } = useBalanceStore();
 
@@ -19,7 +20,7 @@ export default function Native() {
 
     getBalance();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
+  }, [address, chainId]);
 
   return (
     <>
