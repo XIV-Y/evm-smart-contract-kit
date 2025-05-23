@@ -7,6 +7,7 @@ import {
 } from "../contracts/compiled-customERC20.js";
 
 import { getProvider } from "../lib/ethers.js";
+import { confirmAndOpenExplorer } from "../lib/utils.js";
 
 const useCustomERC20 = () => {
   const { address, isConnected } = useAppKitAccount();
@@ -67,13 +68,7 @@ const useCustomERC20 = () => {
 
       console.log("Contract deployed successfully:", deployedInfo);
 
-      const result = window.confirm(
-        `作成成功: ${txHash}\nエクスプローラーで確認しますか？`
-      );
-
-      if (result) {
-        window.open(`https://sepolia.etherscan.io/tx/${txHash}`, "_blank");
-      }
+      confirmAndOpenExplorer(txHash);
     } catch (error) {
       alert(`作成失敗: ${error}`);
     }

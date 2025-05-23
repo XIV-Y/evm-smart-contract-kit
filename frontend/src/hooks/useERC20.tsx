@@ -3,20 +3,11 @@ import { useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
 
 import { ERC20_ADDRESS } from "../consts";
 import { getProvider, getTokenContract } from "../lib/ethers";
+import { confirmAndOpenExplorer } from "../lib/utils";
 
 const useERC20 = () => {
   const { address, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider("eip155");
-
-  const confirmAndOpenExplorer = (txHash: string) => {
-    const result = window.confirm(
-      `転送成功: ${txHash}\nエクスプローラーで確認しますか？`
-    );
-
-    if (result) {
-      window.open(`https://sepolia.etherscan.io/tx/${txHash}`, "_blank");
-    }
-  };
 
   // トークンの転送
   const transfer = async (recipientAddress: string) => {

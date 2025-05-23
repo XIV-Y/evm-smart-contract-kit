@@ -1,20 +1,11 @@
 import { ethers } from "ethers";
 import { useAppKitAccount, useAppKitProvider } from "@reown/appkit/react";
 import { getProvider } from "../lib/ethers";
+import { confirmAndOpenExplorer } from "../lib/utils";
 
 const useETH = () => {
   const { address, isConnected } = useAppKitAccount();
   const { walletProvider } = useAppKitProvider("eip155");
-
-  const confirmAndOpenExplorer = (txHash: string) => {
-    const result = window.confirm(
-      `転送成功: ${txHash}\nエクスプローラーで確認しますか？`
-    );
-
-    if (result) {
-      window.open(`https://sepolia.etherscan.io/tx/${txHash}`, "_blank");
-    }
-  };
 
   const transfer = async (recipientAddress: string) => {
     try {
