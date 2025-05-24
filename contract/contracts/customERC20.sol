@@ -16,11 +16,11 @@ contract CustomERC20 is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
   uint256 private immutable _maxSupply = 10_000_000 * (10 ** DECIMALS);
 
   constructor(
-    string memory _name,
-    string memory _symbol,
-    address _owner
-  ) ERC20(_name, _symbol) Ownable(_owner) {
-    _mint(_owner, _initialSupply);
+    string memory name_,
+    string memory symbol_,
+    address owner_
+  ) ERC20(name_, symbol_) Ownable(owner_) {
+    _mint(owner_, _initialSupply);
   }
 
   function mint(address to, uint256 amount) public onlyOwner {
