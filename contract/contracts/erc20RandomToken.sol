@@ -132,7 +132,7 @@ contract XIVYRandomToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
   }
 }
 
-contract SimpleRandomOracle {
+contract SimpleRandomOracle is IRandomOracle {
   uint256 private nonce;
   
   function getRandomNumber(uint256 min, uint256 max) external returns (uint256) {
