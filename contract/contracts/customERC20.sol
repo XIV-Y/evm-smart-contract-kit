@@ -7,13 +7,13 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract CustomERC20 is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
-  uint8 private constant _decimals = 18;
+  uint8 private constant DECIMALS = 18;
 
   // 初期供給量（固定値）
-  uint256 private immutable _initialSupply = 1_000_000 * (10 ** _decimals);
+  uint256 private immutable _initialSupply = 1_000_000 * (10 ** DECIMALS);
 
   // 最大供給量（固定値）
-  uint256 private immutable _maxSupply = 10_000_000 * (10 ** _decimals);
+  uint256 private immutable _maxSupply = 10_000_000 * (10 ** DECIMALS);
 
   constructor(
     string memory _name,
@@ -37,7 +37,7 @@ contract CustomERC20 is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
   }
 
   function decimals() public view virtual override returns (uint8) {
-      return _decimals;
+      return DECIMALS;
   }
 
   function maxSupply() public view returns (uint256) {
