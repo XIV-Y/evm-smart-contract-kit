@@ -22,7 +22,7 @@ contract XIVYRandomToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
   uint256 public constant NORMAL_CHANCE = 20;      // 20%
   uint256 public constant CONSOLATION_CHANCE = 70; // 70%
   
-  uint8 private _decimals = 18;
+  uint8 private constant _decimals = 18;
 
   // 初期供給量
   uint256 private immutable _initialSupply = 1_000_000 * (10 ** _decimals);

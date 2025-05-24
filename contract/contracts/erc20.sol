@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract XIVYToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
-  uint8 private _decimals = 18;
+  uint8 private constant _decimals = 18;
 
   // 初期供給量
   uint256 private immutable _initialSupply = 1_000_000 * (10 ** _decimals);
