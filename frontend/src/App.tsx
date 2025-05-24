@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ERC20 from "./components/ERC20";
 import CustomERC20 from "./components/CustomERC20";
 import { useBalanceStore } from "./store/useBalance";
+import ERC20RandomToken from "./components/ERC20RandomToken";
 
 const projectId = import.meta.env.VITE_PROJECT_ID;
 
@@ -77,11 +78,12 @@ export default function App() {
           </div>
 
           <div className="mt-8">
-            <Tabs defaultValue="Native" className="w-[400px]">
-              <TabsList className="grid w-full grid-cols-3">
+            <Tabs defaultValue="Native" className="w-[500px]">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="Native">Native</TabsTrigger>
                 <TabsTrigger value="ERC20">ERC20</TabsTrigger>
                 <TabsTrigger value="CustomERC20">Custom ERC20</TabsTrigger>
+                <TabsTrigger value="ERC20RandomToken">Hoge</TabsTrigger>
               </TabsList>
 
               <div className="text-white text-center mb-2 min-h-[24px] flex items-center justify-center">
@@ -107,6 +109,11 @@ export default function App() {
               <TabsContent value="CustomERC20" className="space-y-2">
                 <div className="flex justify-center items-center gap-2">
                   <CustomERC20 />
+                </div>
+              </TabsContent>
+              <TabsContent value="ERC20RandomToken" className="space-y-2">
+                <div className="flex justify-center items-center gap-2">
+                  <ERC20RandomToken />
                 </div>
               </TabsContent>
             </Tabs>

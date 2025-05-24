@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-import { ERC20_ADDRESS, ERC20_ABI } from "../consts";
+import { ERC20_ADDRESS, ERC20_ABI, XIVY_RANDOM_TOKEN_ABI, XIVY_RANDOM_TOKEN_ADDRESS } from "../consts";
 
 import type { ExternalProvider } from "@ethersproject/providers";
 
@@ -15,3 +15,10 @@ export  const getTokenContract = (
 ) => {
   return new ethers.Contract(ERC20_ADDRESS, ERC20_ABI, signerOrProvider);
 };
+
+export  const getERC20RandomTokenTokenContract = (
+  signerOrProvider: ethers.Signer | ethers.providers.Provider
+) => {
+  return new ethers.Contract(XIVY_RANDOM_TOKEN_ADDRESS, XIVY_RANDOM_TOKEN_ABI, signerOrProvider);
+};
+
