@@ -27,8 +27,6 @@ services:
       - hardhat
     environment:
       - NODE_ENV=development
-    entrypoint: ["npx", "hardhat"]
-    command: ["help"]
 
   slither:
     image: trailofbits/eth-security-toolbox:latest
