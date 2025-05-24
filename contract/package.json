@@ -12,6 +12,8 @@
     "deploy:custom-erc20-local": "hardhat run scripts/customERC20/deploy.js --network localhost",
     "deploy:custom-erc20-sepolia": "hardhat run scripts/customERC20/deploy.js --network sepolia",
     "deploy:compile-for-react-custom-erc20-sepolia": "hardhat run scripts/customERC20/compile-for-react.js",
+    "deploy:erc20-random-tokne-local": "hardhat run scripts/erc20RandomToken/deploy.js --network localhost",
+    "deploy:erc20-random-tokne-sepolia": "hardhat run scripts/erc20RandomToken/deploy.js --network sepolia",
     "verify": "hardhat verify"
   },
   "keywords": [
