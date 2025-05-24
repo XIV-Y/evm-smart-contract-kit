@@ -30,5 +30,12 @@ services:
     entrypoint: ["npx", "hardhat"]
     command: ["help"]
 
+  slither:
+    image: trailofbits/eth-security-toolbox:latest
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    entrypoint: ["sleep", "infinity"]
+
 volumes:
   contract_node_modules:
