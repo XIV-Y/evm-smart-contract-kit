@@ -25,10 +25,10 @@ contract XIVYRandomToken is ERC20, ERC20Burnable, ERC20Pausable, Ownable {
   uint8 private _decimals = 18;
 
   // 初期供給量
-  uint256 private _initialSupply = 1_000_000 * (10 ** _decimals);
+  uint256 private immutable _initialSupply = 1_000_000 * (10 ** _decimals);
 
   // 最大供給量
-  uint256 private _maxSupply = 10_000_000 * (10 ** _decimals);
+  uint256 private immutable _maxSupply = 10_000_000 * (10 ** _decimals);
 
   // ランダムオラクルアドレス
   IRandomOracle public randomOracle;
