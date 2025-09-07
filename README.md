@@ -1,4 +1,6 @@
-# evm-example-contracts
+# EVM Smart Contract Development Kit]
+
+EVMチェーン（Ethereum、Polygon、Oasys）対応のスマートコントラクト開発・デプロイ・フロントエンド統合のサンプルプロジェクト。
 
 「Native Token」「ERC20 Token」の Transfer が実行可能です
 
